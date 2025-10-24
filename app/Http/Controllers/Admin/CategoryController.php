@@ -26,7 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return inertia("Admin/Category/Create");
+        $categories = CategoryResource::collection(Category::all())->resolve();
+        return inertia("Admin/Category/Create",compact("categories"));
     }
 
     /**

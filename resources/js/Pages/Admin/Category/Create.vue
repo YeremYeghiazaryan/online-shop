@@ -8,18 +8,24 @@ export default {
     components:{
         Link
     },
+    props:{
+      categories: Array
+    },
     methods: {
         storeCategory(){
             axios.post(route('admin.categories.store'),this.category)
                 .then(res =>{
-                    console.log(res);
-                    this.category = {}
+                    this.category = {
+                        parent_id: null
+                    }
                 })
         }
     },
     data() {
         return {
-            category :{}
+            category :{
+                parent_id: null
+            }
         }
 
     }
@@ -34,12 +40,13 @@ export default {
         </div>
 
         <div class="mb-4">
-            <input type="text" v-model="category.title" class="border border-grat-200 p-2" placeholder="title">
+            <input type="text" v-model="category.title" class="border border-grat-200 p-2 w-1/4" placeholder="title">
         </div>
 
         <div class="mb-4">
-            <select v-model="category.parent_id">
-                <option value="1">Category 1</option>
+            <select v-model="category.parent_id" class="border border-grat-200 p-2 w-1/4">
+                <option :value="null" disabled selected>Add Category</option>
+                <option v-for="category in categories" :value="category.id">{{category.title}}</option>
             </select>
         </div>
         <div>
