@@ -30,7 +30,7 @@ class GoogleController extends Controller
         $code = $request->get('code');
 
         if (!$code) {
-            return redirect()->route('login.index')->with('error', ' Google.');
+            return redirect()->route('login.index')->with('error', 'failed login with Google.');
         }
 
         $client = new Client();
@@ -41,7 +41,7 @@ class GoogleController extends Controller
         $token = $client->fetchAccessTokenWithAuthCode($code);
 
         if (isset($token['error'])) {
-            return redirect()->route('login.index')->with('error', ' Google.');
+            return redirect()->route('login.index')->with('error','failed login with Google.');
         }
 
         $client->setAccessToken($token['access_token']);

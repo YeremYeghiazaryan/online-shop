@@ -12,11 +12,17 @@ class AuthController extends Controller
 
     public function indexLogin()
     {
+        if(Auth::check()){
+            return redirect()->route('dashboard.index');
+        }
+
         return view('auth.login');
     }
     public function indexRegister()
     {
-
+        if(Auth::check()){
+            return redirect()->route('dashboard.index');
+        }
         return view('auth.register');
     }
 
